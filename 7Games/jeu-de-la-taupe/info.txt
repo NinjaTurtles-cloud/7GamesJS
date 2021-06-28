@@ -1,0 +1,177 @@
+Whacke-a-mole (Frapper une taupe)
+Merci a kubowania d'avoir parter son code. 
+ 💻 Code: https://github.com/kubowania/whack-a-...
+
+  Le jeu de la taupe  est basé sur une grille il a été crée en 1975, une taupe se deplace en disparaissant d'une case pour s'afficher sur une autre est le but est de la taper le plus de fois possible en 60seconde. 
+  Nous allons rester sur un style simple afin que vous puissez développer votre propre styles. 
+
+  Voici la liste des fonctionalité javascript que nous allons voir enssemble en créant ce jeux
+  • querySelector()
+  • addEventListener()
+  • setInterval()
+  • classList
+  • forEach()
+  • Arrow functions
+
+Pour commencer on commence avec le classique index.html, style.css, app.js. 
+On y a joute l'mage d'une taupe. 
+
+Dans index HTML 
+On commence par ajouter un lien pour notre style.css, et notre app.js
+Nous avon egalement un h1 pour le nom du jeux des h2 pour afficher le score et le chronometre. 
+Ainsi qu'un identifiant pour les récuperer sur notre app.js h2#score et h2#time-left. 
+
+Et nous avons un div.grid contenant 9 case div.square
+
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Whac-a-mole</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <h2>Your score:</h2>
+  <h2 id="score">0</h2>
+
+  <h2>Time Left:</h2>
+  <h2 id="time-left">60</h2>
+
+  <div class="grid">
+    <div class="square" id="1"></div>
+    <div class="square" id="2"></div>
+    <div class="square" id="3"></div>
+    <div class="square" id="4"></div>
+    <div class="square" id="5"></div>
+    <div class="square" id="6"></div>
+    <div class="square" id="7"></div>
+    <div class="square" id="8"></div>
+    <div class="square" id="9"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+Style.css
+Dans le style.css je créer des carré en utilisant la classe square pour ajouter les propriété suite
+avec une height et width de 200px 
+une border solid black 
+
+Ensuite on utilise la class grid pour mettre en forme nos carré avec les propriété : 
+display flex;
+flex-flow : row wrap;
+justify-content: center;
+align content: center;
+width 618px;
+height 618px;
+
+Ensuite pour ajouter une taupe dans une case on utilise la classe mole avec la propriété css
+
+background-image: url('mole.jpg');
+background size : cover;
+
+Il faudra ajouter la classe mole apres une classe square de pour que notre taupe apparaisse dans une case. 
+
+App.js
+
+Dans notre app.js
+On commence par selectionner tout nos classe .square dans une constante
+const squares = document.querySelectorAll('.square')
+
+Une autre pour l'a taupe avec la classe .mole
+const mole = document.querySelector('.mole')
+
+Et 2 autre pour le chronometre et le score.
+const timeLeft = document.querySelector('#time-left')
+const score = document.querySelector('#score')
+
+pour commencer on déclare un resultat a 0 et une fonction de selectione aléatoire de carré sur notre grille. 
+
+let result = 0 
+
+function randomSquare(){
+
+}
+
+On commence par utiliser une fonction fléché pour supprimer toute les class .mole 
+
+function randomSquare() {
+  squares.forEach(square => {
+    square.classList.remove('mole')
+  })
+
+  Ensuite on utilise une position aléatoire sur notre grille grace a math.random; on meultiple par le nombre de carré dans la grille, et on arrondis a la valeur inferieur la plus proche avec Math.floor de sorte que la position aléatoire soit toujour inferieur ou egale à 9.
+
+  Une fois que la position est définis ony ajoute la classe molle pour qu'elle apparaisse dans la grille. 
+
+Ensuite on transmet l'id de la position aléatoire a notre position de hit que nous utiliserons plus tard dans notre code. 
+
+function randomSquare() {
+  squares.forEach(square => {
+    square.classList.remove('mole')
+  })
+
+  let randomSquare = squares[Math.floor(Math.random() * 9)]
+  randomSquare.classList.add('mole')
+
+  hitPosition = randomSquare.id
+}
+
+Nous allons utiliser une fonction fléché pour écouter nos evenements. 
+l'evenemtn mouseUp se refere au moment ou nos appuyons sur la souris. 
+'enement mouseDown au moment ou on lache le boutton de la souris. 
+Si l'id.square est === a la hitPosition 
+nous gagnons un point 
+nous affichons le nouveau score sur notre navigateur 
+nous remettons le hitPosition a 0.
+
+squares.forEach(square => {
+  square.addEventListener('mouseup', () => {
+    if (square.id == hitPosition) {
+      result++
+      score.textContent = result
+      hitPosition = null
+    }
+  })
+})
+
+Maintenant nous devons ecrire une fonction qui deplacera la taupe de temps en temps en définissant l'id du chronometre sur null puis en utilisant setIntervalle pour rendre la fonction randomSquare toutes les 500ms
+Puis on apelle la fonction. 
+
+function moveMole() {
+  let timerId = null
+  timerId = setInterval(randomSquare, 500)
+}
+
+moveMole()
+
+On n'oublie pas de
+
+Ensuite nous créons notre chronomètre, en créeant une variable : 
+let currentTime = 60
+Et une constante pour afficher le temps restant : 
+const timeLeft = document.querySelector('#time-left')
+
+Et nous créeons une fonction countDown qui décrément currentime de 1
+et affiche ça nouvelle valeur. 
+Et si cuurentTime === 0 
+Nous avond le jeu qui est terminé, nous effaçons le chronometre, et nous envoyons une alert pour informer a l'utilisateur que le jeu est terminé avec le score obtenue. 
+On n'oublie pas d'appeler la fonction countDown toutes les secondes afin de mettre a jour le chronomètre.
+
+function countDown() {
+ currentTime--
+ timeLeft.textContent = currentTime
+
+ if (currentTime == 0) {
+   clearInterval(countDownTimerId)
+   clearInterval(timerId)
+   alert('GAME OVER! Your final score is ' + result)
+ }
+
+}
+
+let countDownTimerId = setInterval(countDown, 1000)
+
