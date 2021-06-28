@@ -275,7 +275,8 @@ Si les carte ne corssponde pas alors je remet l'image du dos des carte "blank.pn
   Pour cela j'ajoute une constant qui recupere l'id #result de mon fichier html
   const resultDisplay = document.querySelector('#result')
 
-  Ensuite nous allons dire que si le nombre de carte qui ont matché ( cardWon ) est égale au nombre de carte dans notre tableau de carte divisé par 2 nous affichon le message ' Bravo vous avez trouver toute les cartes.
+  Ensuite nous allons dire que si le nombre de carte qui ont matché ( cardWon ) est = au score affiché.
+  Et si le nombre de carte qui ont matché ( cardWon ) est égale au nombre de carte dans notre tableau de carte divisé par 2 nous affichon le message ' Bravo vous avez terminé les jeux".
 
       resultDisplay.textContent = cardsWon.length
     if  (cardsWon.length === cardArray.length/2) {
