@@ -1,0 +1,292 @@
+Memory Games. 
+
+Dans ce jeu nous allons découvrire les fonctions JavaScript : 
+push()
+querySelector()
+setAttribute()
+getAttribute()
+createElement()
+appendChild()
+Math.random()
+sort()
+For loop
+
+Memory Games est jeu de mémoire basé sur une grille dans lequelle le joueur doit retourner des cartes. Quand 2 cartes correspondes, c'est un point pour vous et les 2 cartes sont rétiré du tableau. Le jeu est terminé quand vous avez retiré toutes les cartes.
+Nous allons coder ce jeu de mémoire afin de comprendre comment travailler avec des tableau vides, ainsi que pousser et stocker des choses à l'interieur. 
+Nous allons ainsi découvrire les fonction JS : 
+setAttribute(), getAtribute(), createElement(),appendChild(),Math.random(),sort() et les ForLoop.
+Le jeu sera coder dans un style simple à amélioré par la suite. 
+
+Installez vous et commencé à coder. 
+
+Au niveau de l'architecture nous avons un dossier images contenant des images de forme carré que nous allons utiliser avec une taille de 100px par 100px pour eviter de les étirer et de perdre de la résolution. On trouve des images de fast-food pour le coté face des cartes, on trouve également une image multicolore qui represente le dos des cartes. Et une image blanche pour simuler du vide quand les cartes sont retiré de la grille. 
+
+Nous retrouvons les fichiers classiques index.html, app.js, styles.css
+
+Index.htm
+Dans notre index.html nous inséerons une balise h3 dans le body avec une id="result". Qui nous serivra à afficher le score.
+Ensuite nous créons une div class="grid" c'est ici que notre grille de jeu sera créée.
+N'oubliez pas de lieée le ficher style.css et app.js
+
+Styles.css
+Dans notre styles CSS nous allons créer une grille de 3 par 4 pour nos cartes. sachant que les carte mesure 100px par 100px, nous allons utilisé une hauteur de 300px et une argeur de 400px. 
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  height: 300px;
+}
+
+
+App.js
+C'est dans le fichier app.js que sera placer tout notre code JS.
+Tout sera placer dans l'écouteur d'evenement Dom :
+
+document.addEventListener('DOMContentLoaded', () => {
+
+};
+
+Puis on créer un taleau pour y insérer nos carte et leur donner des noms que nous utiliserons plustard. Chaque carte est inscrite deux fois car nous devons en avoir deux pour faire des pairs. J'écris simplement un nom et une URL pour chaque images.
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    //Card options
+      const cardArray = [
+    {
+      name: 'fries',
+      img: 'images/fries.png'
+    },
+    {
+      name: 'cheeseburger',
+      img: 'images/cheeseburger.png'
+    },
+    {
+      name: 'ice-cream',
+      img: 'images/ice-cream.png'
+    },
+    {
+      name: 'pizza',
+      img: 'images/pizza.png'
+    },
+    {
+      name: 'milkshake',
+      img: 'images/milkshake.png'
+    },
+    {
+      name: 'hotdog',
+      img: 'images/hotdog.png'
+    },
+    {
+      name: 'fries',
+      img: 'images/fries.png'
+    },
+    {
+      name: 'cheeseburger',
+      img: 'images/cheeseburger.png'
+    },
+    {
+      name: 'ice-cream',
+      img: 'images/ice-cream.png'
+    },
+    {
+      name: 'pizza',
+      img: 'images/pizza.png'
+    },
+    {
+      name: 'milkshake',
+      img: 'images/milkshake.png'
+    },
+    {
+      name: 'hotdog',
+      img: 'images/hotdog.png'
+    }
+  ]
+
+};
+
+Maintenant nous allons créer notre plateau de jeu. 
+
+En premier je déclare une constante qui récupere le grid de notre html que j'apelle grid.
+
+Ensuite j'utilise une for loop qui vas créer une image pour chaque carte. 
+Et je définis attribut et la lier a l'image blank.png (l'image representant le dos des cartes )
+Je vais egalement donner une donnée pour chaque id qui vas de 0 a 11 ( car nous avons 12 cartes ). 
+On ajoute ensuite un evnement pour retourner la carte si elle est cliqué et apelle la fonction flipCard
+Puis la grid.appendChild(card) pour mettre les cartes dans a l'interieur du dossier grid de la div class grid ....?
+
+Commencçon par coder la fonction creatBoard()
+
+    // déclaration des variables
+    const grid = document.querySelector('.grid')
+
+    //create your board
+    function createBoard() {
+    for (let i = 0; i < cardArray.length; i++) {
+      const card = document.createElement('img')
+      card.setAttribute('src', 'images/blank.png')
+      card.setAttribute('data-id', i)
+      card.addEventListener('click', flipCard) // flipCard est une fonction que nous allons écrire. 
+      grid.appendChild(card) 
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    //Card options
+      const cardArray = [
+    {
+      name: 'fries',
+      img: 'images/fries.png'
+    },
+    {
+      name: 'cheeseburger',
+      img: 'images/cheeseburger.png'
+    },
+    {
+      name: 'ice-cream',
+      img: 'images/ice-cream.png'
+    },
+    {
+      name: 'pizza',
+      img: 'images/pizza.png'
+    },
+    {
+      name: 'milkshake',
+      img: 'images/milkshake.png'
+    },
+    {
+      name: 'hotdog',
+      img: 'images/hotdog.png'
+    },
+    {
+      name: 'fries',
+      img: 'images/fries.png'
+    },
+    {
+      name: 'cheeseburger',
+      img: 'images/cheeseburger.png'
+    },
+    {
+      name: 'ice-cream',
+      img: 'images/ice-cream.png'
+    },
+    {
+      name: 'pizza',
+      img: 'images/pizza.png'
+    },
+    {
+      name: 'milkshake',
+      img: 'images/milkshake.png'
+    },
+    {
+      name: 'hotdog',
+      img: 'images/hotdog.png'
+    }
+  ]
+
+    const grid = document.querySelector('.grid')
+
+  //create your board
+  function createBoard() {
+    for (let i = 0; i < cardArray.length; i++) { //Créer une boucle a chaque fois qu'il y a une carte dans le tableau et a chaque boucle :
+      const card = document.createElement('img') // créer un élément img
+      card.setAttribute('src', 'images/blank.png') // avec l'attribut src pour définir le path de l'image
+      card.setAttribute('data-id', i) // inserer l'attribut data-id pour définir un id a chaque image
+      card.addEventListener('click', flipCard) // Si il y a un clique sur l'image active la fonction flipcard
+      grid.appendChild(card) // Insère l'élement img en tant qu'enfant de la div class card.
+    }
+  }
+
+ createBoard()
+
+};
+
+Maintenant pour que notre jeu est pret nous devons faire 2 choses 
+retourner les carte et verifier que les cartes correspondes. 
+
+Commençons par la fonction flipCard pour retourner les cartes.
+Quand une carte est cliquer on appelle la fonction flipCard Via la fonction createBoard
+Avec la fonction flipCard on commence par définir l'id d'une carte avec l'attribut de donnée que nous avons créer dans la fonction createBoard. Pour l'obtenir nous utilisons get.attribute
+Ensuite on créer un tableau vide en fonction de la carte choisis et on pousse ID de la carte et son nom qu'on recupere dans le tableau cardArray. 
+Nous déclarons alors 2 tableau vide pour récuperer les information l'id et le nom de la carte. 
+Ensuite avec le setAttribute on récupere la source de l'image grace a son id pour afficher le coter face de la carte. 
+Et nous voulons qu'il y ai maximum que 2 carte soit retourner en meme temps dans notre grid. Alors une fois qu'il y a deux carte du coté face on les laisse afficher 500ms et on verifie si elle corresponde avec la fonction checkForMatch() que nous allons coder plsu tard. 
+
+let cardsChosen = []
+let cardsChosenId = []
+
+
+  //flip your card
+  function flipCard() {
+    let cardId = this.getAttribute('data-id') 
+    cardsChosen.push(cardArray[cardId].name)
+    cardsChosenId.push(cardId)
+    this.setAttribute('src', cardArray[cardId].img)
+    if (cardsChosen.length ===2) {
+      setTimeout(checkForMatch, 500)
+    }
+  }
+
+Codons maintenant la fonction check for match.
+On commence par récupérer toutes les images de notre document avec querySelectorAll
+Ensuite nous récuperons 2 id pour verifier si elle corrsponde avec les constante optionOneId et optiontwoId
+
+Si les 2 element du tableau corresponde profondément je veut une alert "you found a match"
+Et je veux que les 2 carte se transforme en carré blanc en ajoutant l'image white.png et en enlevant
+Je déclare dans les variable un nouveau tableau 
+let cardsWon = []
+Pour y pusher les carte choisie qui ont matcher à l'interieur. 
+
+Si les carte ne corssponde pas alors je remet l'image du dos des carte "blank.png" et une alert "sorry vous pouvez recommencer"
+
+  //check for matches
+  function checkForMatch() {
+    const cards = document.querySelectorAll('img')
+    const optionOneId = cardsChosenId[0]
+    const optionTwoId = cardsChosenId[1]
+    
+    if(optionOneId == optionTwoId) {
+      cards[optionOneId].setAttribute('src', 'images/blank.png')
+      cards[optionTwoId].setAttribute('src', 'images/blank.png')
+      alert('You have clicked the same image!')
+    }
+    else if (cardsChosen[0] === cardsChosen[1]) {
+      alert('You found a match')
+      cards[optionOneId].setAttribute('src', 'images/white.png')
+      cards[optionTwoId].setAttribute('src', 'images/white.png')
+      cards[optionOneId].removeEventListener('click', flipCard)
+      cards[optionTwoId].removeEventListener('click', flipCard)
+      cardsWon.push(cardsChosen)
+    } else {
+      cards[optionOneId].setAttribute('src', 'images/blank.png')
+      cards[optionTwoId].setAttribute('src', 'images/blank.png')
+      alert('Sorry, try again')
+    }
+    cardsChosen = []
+    cardsChosenId = []
+    resultDisplay.textContent = cardsWon.length
+    if  (cardsWon.length === cardArray.length/2) {
+      resultDisplay.textContent = 'Congratulations! You found them all!'
+    }
+  }
+
+  Ce qui serait bien c'est d'afficher un score en ajoutant un point à chaque fois qu'il y un match entre 2 cartes. 
+
+  Pour cela j'ajoute une constant qui recupere l'id #result de mon fichier html
+  const resultDisplay = document.querySelector('#result')
+
+  Ensuite nous allons dire que si le nombre de carte qui ont matché ( cardWon ) est égale au nombre de carte dans notre tableau de carte divisé par 2 nous affichon le message ' Bravo vous avez trouver toute les cartes.
+
+      resultDisplay.textContent = cardsWon.length
+    if  (cardsWon.length === cardArray.length/2) {
+      resultDisplay.textContent = 'Congratulations! You found them all!'
+    }
+  }
+
+
+Maintenant la derniere instruction que nous allons faire c'est de placer les carte au harsard dans notre grid. 
+Pour cela nous allons utiliser sort et math.random.
+
+  cardArray.sort(() => 0.5 - Math.random())
+
+
