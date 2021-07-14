@@ -288,6 +288,6 @@ Si les carte ne corssponde pas alors je remet l'image du dos des carte "blank.pn
 Maintenant la derniere instruction que nous allons faire c'est de placer les carte au harsard dans notre grid. 
 Pour cela nous allons utiliser sort et math.random.
 
-  cardArray.sort(() => 0.5 - Math.random())
+cardArray.sort(() => 0.5 - Math.random())
 
 
